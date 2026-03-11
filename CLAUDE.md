@@ -45,6 +45,7 @@ A `Makefile` wraps these commands (e.g., `make dev`, `make test`).
 - ESLint via `@antfu/eslint-config` (flat config in `eslint.config.mjs`)
 - Vue SFCs use `<script setup lang="ts">` with Composition API
 - Strict TypeScript: `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch` enabled
+- Use `type` instead of `interface` — no interfaces in this codebase
 - SCSS available via `sass-embedded`
 
 ## Documentation References
