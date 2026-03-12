@@ -101,19 +101,19 @@ describe('createTickFunction', () => {
     const winnerId = results.find(r => r.position === 1)!.horseId
     const lastId = results.find(r => r.position === 10)!.horseId
 
-    expect(progress.positions[winnerId]).toBeGreaterThan(progress.positions[lastId])
+    expect(progress.positions[winnerId]).toBeGreaterThan(progress.positions[lastId]!)
   })
 
   it('progress is monotonically increasing', () => {
     const results = simulateRace(round, horses)
     const tickFn = createTickFunction(results)
-    const horseId = results[0].horseId
+    const horseId = results[0]!.horseId
 
     let prevProgress = 0
     for (let t = 0; t <= RACE_DURATION_MS + STAGGER_MS * 10; t += 100) {
       const progress = tickFn(t)
       expect(progress.positions[horseId]).toBeGreaterThanOrEqual(prevProgress)
-      prevProgress = progress.positions[horseId]
+      prevProgress = progress.positions[horseId]!
     }
   })
 })

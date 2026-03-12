@@ -99,7 +99,7 @@ describe('useHorseGameStore', () => {
       store.finalizeRound()
 
       const round1 = store.schedule[0]
-      const hasResults = round1.entries.every(e => e.position > 0)
+      const hasResults = round1!.entries.every(e => e.position > 0)
       expect(hasResults).toBe(true)
       expect(store.currentRoundIndex).toBe(1)
       expect(store.phase).toBe('ready')
