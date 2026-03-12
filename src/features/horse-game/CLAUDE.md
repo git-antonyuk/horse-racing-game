@@ -9,6 +9,19 @@
 - Results displayed after each round completes
 - Horses animate visually during each race
 
+## Component Structure
+
+Components with logic must be organized into folders:
+
+```
+ComponentName/
+  ComponentName.vue        # Presentation only (template + props/emits wiring)
+  useComponentName.ts      # All logic (composable, easily testable)
+  useComponentName.spec.ts # Unit tests for the composable
+```
+
+Pure presentational components (no logic beyond props/emits) stay as flat `.vue` files.
+
 ## Task Spec
 
 Full requirements available in `input/test_task.pdf`.

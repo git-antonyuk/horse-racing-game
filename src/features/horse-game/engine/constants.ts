@@ -50,6 +50,17 @@ export const HORSES_COUNT = 20
 export const ROUNDS_COUNT = 6
 export const HORSES_PER_ROUND = 10
 
-export const RACE_DURATION_MS = 5000 // winner finishes in ~5s
-export const STAGGER_MS = 300 // gap between finishing positions
-export const AUTO_ADVANCE_DELAY_MS = 1500
+/**
+ * @description The duration of the race in milliseconds.
+ */
+export const RACE_DURATION_MS = 1000
+
+/**
+ * @description The gap between finishing positions in milliseconds.
+ */
+export const STAGGER_MS = 300
+
+/**
+ * @description The delay before advancing to the next round automatically in milliseconds.
+ */
+export const AUTO_ADVANCE_DELAY_MS = 0

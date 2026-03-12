@@ -1,26 +1,17 @@
 <script setup lang="ts">
 import type { Horse } from '@/features/horse-game/types'
-import { computed } from 'vue'
-import HorseIcon, { HORSE_ICON_SIZE } from '@/features/horse-game/components/HorseIcon.vue'
+import { toRef } from 'vue'
+import HorseIcon from '@/features/horse-game/components/HorseIcon.vue'
+import { useRaceTrackLane } from './useRaceTrackLane'
 
 type RaceTrackLaneProps = {
   horse: Horse
   progress: number
 }
 
-const { progress, horse } = defineProps<RaceTrackLaneProps>()
+const props = defineProps<RaceTrackLaneProps>()
 
-const BOUNCE_AMPLITUDE = 3
-const BOUNCE_CYCLES = 10
-
-const transformStyle = computed<string>(() => {
-  const bounceY = Math.sin(progress * Math.PI * BOUNCE_CYCLES) * -BOUNCE_AMPLITUDE
-  return `translateY(${bounceY}px)`
-})
-
-const leftStyle = computed<string>(() =>
-  `calc(${progress * 100}% - ${progress * HORSE_ICON_SIZE}px)`,
-)
+const { transformStyle, leftStyle } = useRaceTrackLane(toRef(() => props.progress))
 </script>
 
 <template>

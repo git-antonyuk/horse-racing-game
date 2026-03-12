@@ -1,4 +1,4 @@
-import type { RaceProgress } from '../types'
+import type { RaceProgress } from '@/features/horse-game/types'
 import { ref } from 'vue'
 
 export function useRaceAnimation() {

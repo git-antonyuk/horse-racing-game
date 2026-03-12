@@ -16,6 +16,8 @@ Vue 3 + TypeScript + Vite application designed to host multiple games/pages. The
 
 **Path alias:** `@` maps to `./src`.
 
+**Component structure:** Components with logic get their own folder: `ComponentName/ComponentName.vue` (presentation) + `useComponentName.ts` (logic composable) + `useComponentName.spec.ts` (unit tests). Pure presentational components stay as flat `.vue` files.
+
 ## Commands
 
 | Task | Command |
