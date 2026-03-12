@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { HorseGameControls, HorseList, RaceProgram, RaceResults, RaceTrack } from '@/features/horse-game/components'
 import { useHorseGamePage } from './useHorseGamePage'
 
 const { store, onGenerate, onStartPause } = useHorseGamePage()
+
+onMounted(() => {
+  onGenerate()
+})
 </script>
 
 <template>

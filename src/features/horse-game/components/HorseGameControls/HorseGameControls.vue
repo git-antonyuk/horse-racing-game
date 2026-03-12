@@ -19,7 +19,7 @@ const { startPauseLabel, isStartPauseDisabled, isGenerateDisabled } = useHorseGa
 </script>
 
 <template>
-  <div class="flex gap-3">
+  <div class="flex gap-3 py-2">
     <Button
       data-test="generate-btn"
       label="Generate Program"
