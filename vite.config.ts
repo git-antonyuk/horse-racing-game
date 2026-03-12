@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
+import svgLoader from 'vite-svg-loader'
 
 const PORT = 3333
 
@@ -11,6 +12,7 @@ const PORT = 3333
 export default defineConfig({
   plugins: [
     vue(),
+    svgLoader(),
     tailwindcss(),
     Components({
       resolvers: [PrimeVueResolver()],
