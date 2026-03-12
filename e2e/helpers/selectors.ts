@@ -1,0 +1,15 @@
+export const sel = {
+  header: '[data-test="app-header"]',
+  darkModeToggle: '[data-test="dark-mode-toggle"]',
+  footer: '[data-test="app-footer"]',
+  pageTitle: '[data-test="page-title"]',
+  generateBtn: '[data-test="generate-btn"]',
+  startBtn: '[data-test="start-btn"]',
+  horseList: '[data-test="horse-list"]',
+  raceTrack: '[data-test="race-track"]',
+  roundInfo: '[data-test="round-info"]',
+  raceLane: '[data-test="race-lane"]',
+  raceProgram: '[data-test="race-program"]',
+  raceResults: '[data-test="race-results"]',
+  roundResult: '[data-test="round-result"]',
+}

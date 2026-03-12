@@ -8,7 +8,7 @@ defineProps<HorseListProps>()
 </script>
 
 <template>
-  <div class="horse-list">
+  <div class="horse-list" data-test="horse-list">
     <h3 class="text-lg font-semibold mb-2">
       Horses
     </h3>

@@ -21,18 +21,27 @@ const { startPauseLabel, isStartPauseDisabled, isGenerateDisabled } = useHorseGa
 <template>
   <div class="flex gap-3">
     <Button
+      data-test="generate-btn"
       label="Generate Program"
-      icon="pi pi-refresh"
       :disabled="isGenerateDisabled"
       severity="success"
       @click="emit('generate')"
-    />
+    >
+      <template #icon>
+        <IconLucideRefreshCw />
+      </template>
+    </Button>
     <Button
+      data-test="start-btn"
       :label="startPauseLabel"
-      :icon="phase === 'running' ? 'pi pi-pause' : 'pi pi-play'"
       :disabled="isStartPauseDisabled"
       severity="info"
       @click="emit('startPause')"
-    />
+    >
+      <template #icon>
+        <IconLucidePause v-if="phase === 'running'" />
+        <IconLucidePlay v-else />
+      </template>
+    </Button>
   </div>
 </template>

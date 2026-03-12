@@ -7,7 +7,7 @@ const { store, onGenerate, onStartPause } = useHorseGamePage()
 
 <template>
   <div class="horse-game-page p-4">
-    <h1 class="text-xl font-bold mb-4">
+    <h1 data-test="page-title" class="text-xl font-bold mb-4">
       Horse Racing Game
     </h1>
     <div class="sticky top-0 z-10 bg-surface-50 dark:bg-surface-900">

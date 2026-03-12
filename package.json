@@ -10,12 +10,14 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "e2e": "playwright test --config e2e/playwright.config.ts",
+    "e2e:ui": "playwright test --config e2e/playwright.config.ts --ui",
+    "e2e:headed": "playwright test --config e2e/playwright.config.ts --headed"
   },
   "dependencies": {
     "@primeuix/themes": "^2.0.3",
     "pinia": "^3.0.4",
-    "primeicons": "^7.0.0",
     "primevue": "^4.5.4",
     "tailwindcss": "^4.2.1",
     "tailwindcss-primeui": "^0.6.1",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.6.1",
+    "@iconify-json/lucide": "^1.2.97",
     "@playwright/test": "^1.58.2",
     "@primevue/auto-import-resolver": "^4.5.4",
     "@tailwindcss/vite": "^4.2.1",
@@ -31,10 +34,12 @@
     "@vitejs/plugin-vue": "^6.0.2",
     "@vitest/coverage-v8": "4.0.18",
     "@vue/tsconfig": "^0.8.1",
+    "dotenv": "^17.3.1",
     "eslint": "^10.0.2",
     "jsdom": "^28.1.0",
     "sass-embedded": "^1.97.3",
     "typescript": "~5.9.3",
+    "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^31.0.0",
     "vite": "^7.3.1",
     "vite-bundle-analyzer": "^1.3.6",

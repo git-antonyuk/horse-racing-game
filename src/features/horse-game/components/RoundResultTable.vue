@@ -17,7 +17,7 @@ const results = props.round.entries.toSorted((a, b) => a.position - b.position)
 </script>
 
 <template>
-  <div class="mb-3">
+  <div class="mb-3" data-test="round-result">
     <div class="text-sm font-semibold mb-1">
       Round {{ round.roundNumber }} — {{ round.distance }}m
     </div>

@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help dev build preview test test-coverage lint lint-fix install
+.PHONY: help dev build preview test test-coverage lint lint-fix install e2e e2e-ui e2e-headed
 
 help: ## Show this help message
 	@echo ""
@@ -34,3 +34,12 @@ lint: ## Check code for linting errors (ESLint)
 
 lint-fix: ## Auto-fix linting errors where possible
 	pnpm lint:fix
+
+e2e: ## Run Playwright e2e tests (headless)
+	pnpm e2e
+
+e2e-ui: ## Run Playwright e2e tests in UI mode
+	pnpm e2e:ui
+
+e2e-headed: ## Run Playwright e2e tests in headed browser
+	pnpm e2e:headed

@@ -11,7 +11,7 @@ defineProps<RaceProgramProps>()
 </script>
 
 <template>
-  <div class="race-program">
+  <div class="race-program" data-test="race-program">
     <h3 class="text-lg font-semibold mb-2">
       Program
     </h3>

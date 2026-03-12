@@ -12,12 +12,12 @@ defineProps<RaceTrackProps>()
 </script>
 
 <template>
-  <div class="race-track">
+  <div class="race-track" data-test="race-track">
     <div class="flex items-center justify-between mb-2">
       <h3 class="text-lg font-semibold">
         Race Track
       </h3>
-      <span v-if="roundNumber" class="text-sm text-surface-500">
+      <span v-if="roundNumber" data-test="round-info" class="text-sm text-surface-500">
         Round {{ roundNumber }} — {{ distance }}m
       </span>
     </div>

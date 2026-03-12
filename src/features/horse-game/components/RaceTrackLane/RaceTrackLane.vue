@@ -15,7 +15,7 @@ const { transformStyle, leftStyle } = useRaceTrackLane(toRef(() => props.progres
 </script>
 
 <template>
-  <div class="race-lane flex items-center h-10 border-b border-surface-200 dark:border-surface-700 relative">
+  <div data-test="race-lane" class="race-lane flex items-center h-10 border-b border-surface-200 dark:border-surface-700 relative">
     <div class="lane-name w-28 text-xs truncate px-2 shrink-0" :title="`Power: ${horse.condition}`">
       {{ horse.name }} {{ horse.condition }}
     </div>

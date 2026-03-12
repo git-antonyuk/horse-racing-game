@@ -6,4 +6,5 @@ export default antfu({
       'ts/consistent-type-definitions': ['error', 'type'],
     },
   },
+  ignores: ['e2e/**'],
 })

@@ -13,7 +13,7 @@ defineProps<RaceResultsProps>()
 </script>
 
 <template>
-  <div class="race-results">
+  <div class="race-results" data-test="race-results">
     <h3 class="text-lg font-semibold mb-2">
       Results
     </h3>
