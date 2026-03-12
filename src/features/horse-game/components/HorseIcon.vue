@@ -1,15 +1,17 @@
-<script setup lang="ts">
+<script lang="ts">
 import HorseSvg from '@/features/horse-game/assets/horse.svg'
 
 type HorseIconProps = {
   color: string
 }
 
-defineProps<HorseIconProps>()
+export const HORSE_ICON_SIZE = 50
+</script>
 
-const SIZE = 58
+<script setup lang="ts">
+defineProps<HorseIconProps>()
 </script>
 
 <template>
-  <HorseSvg class="horse-icon" :color="color" :width="SIZE" :height="SIZE" />
+  <HorseSvg class="horse-icon" :color="color" :width="HORSE_ICON_SIZE" :height="HORSE_ICON_SIZE" />
 </template>
