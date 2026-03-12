@@ -14,6 +14,11 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Column: typeof import('primevue/column')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    IconLucideMoon: typeof import('~icons/lucide/moon')['default']
+    IconLucidePause: typeof import('~icons/lucide/pause')['default']
+    IconLucidePlay: typeof import('~icons/lucide/play')['default']
+    IconLucideRefreshCw: typeof import('~icons/lucide/refresh-cw')['default']
+    IconLucideSun: typeof import('~icons/lucide/sun')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
