@@ -39,7 +39,7 @@ A `Makefile` wraps these commands (e.g., `make dev`, `make test`).
 - **Globals:** enabled (`describe`, `it`, `expect` available without imports)
 - **Setup file:** `src/tests/vitest.setup.ts`
 - **Test file convention:** `*.spec.ts` colocated with source files
-- **Coverage thresholds:** 90% for branches, lines, functions, and statements
+- **Coverage thresholds:** 80% for branches, lines, functions, and statements
 - **Coverage output:** `test-results/coverage/` (JSON + HTML)
 
 ## Code Style

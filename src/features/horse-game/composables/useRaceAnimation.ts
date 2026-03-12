@@ -47,8 +47,9 @@ export function useRaceAnimation() {
   }
 
   function pause() {
-    if (!isRunning.value || animationFrameId === null)
+    if (!isRunning.value || animationFrameId === null) {
       return
+    }
     cancelAnimationFrame(animationFrameId)
     animationFrameId = null
 
@@ -61,8 +62,9 @@ export function useRaceAnimation() {
   }
 
   function resume() {
-    if (isRunning.value || !tickFn)
+    if (isRunning.value || !tickFn) {
       return
+    }
     startTime = null
     isRunning.value = true
     animationFrameId = requestAnimationFrame(loop)
