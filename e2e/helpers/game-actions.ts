@@ -19,5 +19,5 @@ export async function runFullRace(page: Page) {
   await clickStartPause(page)
   // Wait for all 6 rounds to complete — the start button becomes disabled
   // and generate button becomes enabled again when finished
-  await page.waitForSelector(`${sel.generateBtn}:not([disabled])`, { timeout: 30_000 })
+  await page.waitForSelector(`${sel.generateBtn}:not([disabled])`, { timeout: 60_000 })
 }

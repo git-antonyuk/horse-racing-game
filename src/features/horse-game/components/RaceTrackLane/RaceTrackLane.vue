@@ -11,7 +11,7 @@ type RaceTrackLaneProps = {
 
 const props = defineProps<RaceTrackLaneProps>()
 
-const { transformStyle, leftStyle } = useRaceTrackLane(toRef(() => props.progress))
+const { transformStyle } = useRaceTrackLane(toRef(() => props.progress))
 </script>
 
 <template>
@@ -19,11 +19,10 @@ const { transformStyle, leftStyle } = useRaceTrackLane(toRef(() => props.progres
     <div class="lane-name w-28 text-xs truncate px-2 shrink-0" :title="`Power: ${horse.condition}`">
       {{ horse.name }} {{ horse.condition }}
     </div>
-    <div class="lane-track flex-1 relative h-full">
+    <div class="lane-track flex-1 relative h-full @container">
       <div
-        class="horse-runner absolute top-0 h-full flex items-center"
+        class="horse-runner absolute left-0 top-0 h-full flex items-center will-change-transform"
         :style="{
-          left: leftStyle,
           transform: transformStyle,
         }"
       >

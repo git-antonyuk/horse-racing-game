@@ -45,6 +45,7 @@ export const HORSE_COLORS: string[] = [
 ]
 
 export const ROUND_DISTANCES: number[] = [1200, 1400, 1600, 1800, 2000, 2200]
+export const BASE_DISTANCE = 1200
 
 export const HORSES_COUNT = 20
 export const ROUNDS_COUNT = 6

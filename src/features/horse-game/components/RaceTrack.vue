@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import type { Horse, RaceProgress } from '@/features/horse-game/types'
+import { computed } from 'vue'
 import { RaceTrackLane } from '@/features/horse-game/components'
+import { formatRaceTime } from '@/features/horse-game/engine/formatTime'
 
 type RaceTrackProps = {
   horses: Horse[]
   progress: RaceProgress
   roundNumber: number | null
   distance: number | null
+  elapsedMs: number
 }
-defineProps<RaceTrackProps>()
+const props = defineProps<RaceTrackProps>()
+
+const formattedTime = computed(() => formatRaceTime(props.elapsedMs))
 </script>
 
 <template>
@@ -38,6 +43,11 @@ defineProps<RaceTrackProps>()
         v-if="horses.length > 0"
         class="absolute right-0 top-0 bottom-0 w-1 bg-red-500"
       />
+    </div>
+    <div v-if="horses.length > 0" class="mt-2 text-center">
+      <span data-test="race-timer" class="font-mono text-lg text-surface-600 dark:text-surface-300">
+        {{ formattedTime }}
+      </span>
     </div>
   </div>
 </template>

@@ -14,6 +14,7 @@ export type Round = {
   roundNumber: number
   distance: number
   entries: RoundEntry[]
+  finishTimeMs?: number
 }
 
 export type RaceProgress = {

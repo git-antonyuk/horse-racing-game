@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Horse, Round } from '@/features/horse-game/types'
+import { computed } from 'vue'
+import { formatRaceTime } from '@/features/horse-game/engine/formatTime'
 
 type RoundResultTableProps = {
   round: Round
@@ -14,12 +16,16 @@ const results = props.round.entries.toSorted((a, b) => a.position - b.position)
     name: horseMap.get(e.horseId)?.name ?? 'Unknown',
     color: horseMap.get(e.horseId)?.color ?? '#888',
   }))
+
+const finishTime = computed(() =>
+  props.round.finishTimeMs != null ? formatRaceTime(props.round.finishTimeMs) : null,
+)
 </script>
 
 <template>
   <div class="mb-3" data-test="round-result">
     <div class="text-sm font-semibold mb-1">
-      Round {{ round.roundNumber }} — {{ round.distance }}m
+      Round {{ round.roundNumber }} — {{ round.distance }}m<span v-if="finishTime"> ({{ finishTime }})</span>
     </div>
     <DataTable :value="results" size="small" striped-rows>
       <Column field="position" header="Pos" style="width: 2.5rem" />

@@ -31,9 +31,10 @@ describe('useRaceAnimation', () => {
     for (const entry of cbs) entry.cb(timestamp)
   }
 
-  it('starts with isRunning false', () => {
-    const { isRunning } = useRaceAnimation()
+  it('starts with isRunning false and elapsedMs 0', () => {
+    const { isRunning, elapsedMs } = useRaceAnimation()
     expect(isRunning.value).toBe(false)
+    expect(elapsedMs.value).toBe(0)
   })
 
   it('sets isRunning to true after start', () => {
@@ -116,8 +117,31 @@ describe('useRaceAnimation', () => {
     expect(isRunning.value).toBe(true)
   })
 
-  it('stop resets everything', () => {
-    const { isRunning, progress, start, stop } = useRaceAnimation()
+  it('updates elapsedMs on each frame', () => {
+    const { elapsedMs, start } = useRaceAnimation()
+    const tickFn = (elapsed: number) => ({ positions: { 1: Math.min(elapsed / 5000, 1) } })
+
+    start(tickFn, 5000)
+    flushRAF(1000) // startTime = 1000, elapsed = 0
+    expect(elapsedMs.value).toBe(0)
+
+    flushRAF(3500) // elapsed = 2500
+    expect(elapsedMs.value).toBe(2500)
+  })
+
+  it('elapsedMs reflects final value at completion', () => {
+    const { elapsedMs, start } = useRaceAnimation()
+    const tickFn = (elapsed: number) => ({ positions: { 1: Math.min(elapsed / 1000, 1) } })
+
+    start(tickFn, 1000)
+    flushRAF(0)
+    flushRAF(1000)
+
+    expect(elapsedMs.value).toBe(1000)
+  })
+
+  it('stop resets everything including elapsedMs', () => {
+    const { isRunning, progress, elapsedMs, start, stop } = useRaceAnimation()
     const tickFn = (elapsed: number) => ({ positions: { 1: Math.min(elapsed / 5000, 1) } })
 
     start(tickFn, 5000)
@@ -127,5 +151,6 @@ describe('useRaceAnimation', () => {
 
     expect(isRunning.value).toBe(false)
     expect(progress.value).toEqual({ positions: {} })
+    expect(elapsedMs.value).toBe(0)
   })
 })

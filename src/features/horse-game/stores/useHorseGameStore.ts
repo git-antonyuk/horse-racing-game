@@ -10,6 +10,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
   const currentRoundIndex = ref(0)
   const phase = ref<GamePhase>('idle')
   const raceProgress = ref<RaceProgress>({ positions: {} })
+  const raceElapsedMs = ref(0)
   const precomputedResults = ref<RoundEntry[]>([])
 
   const currentRound = computed(() => schedule.value[currentRoundIndex.value] ?? null)
@@ -34,6 +35,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
     schedule.value = generateSchedule(newHorses)
     currentRoundIndex.value = 0
     raceProgress.value = { positions: {} }
+    raceElapsedMs.value = 0
     precomputedResults.value = []
     phase.value = 'ready'
   }
@@ -43,7 +45,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
     const results = simulateRace(round, horses.value)
     precomputedResults.value = results
 
-    const tickFn = createTickFunction(results)
+    const tickFn = createTickFunction(results, round.distance)
     phase.value = 'running'
     raceProgress.value = { positions: {} }
     return tickFn
@@ -51,6 +53,8 @@ export const useHorseGameStore = defineStore('horseGame', () => {
 
   function finalizeRound() {
     const round = currentRound.value!
+    round.finishTimeMs = raceElapsedMs.value
+
     if (precomputedResults.value.length > 0) {
       round.entries = precomputedResults.value
       precomputedResults.value = []
@@ -64,10 +68,15 @@ export const useHorseGameStore = defineStore('horseGame', () => {
       phase.value = 'ready'
     }
     raceProgress.value = { positions: {} }
+    raceElapsedMs.value = 0
   }
 
   function setPhase(newPhase: GamePhase) {
     phase.value = newPhase
+  }
+
+  function updateElapsedMs(ms: number) {
+    raceElapsedMs.value = ms
   }
 
   function updateProgress(progress: RaceProgress) {
@@ -80,6 +89,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
     currentRoundIndex.value = 0
     phase.value = 'idle'
     raceProgress.value = { positions: {} }
+    raceElapsedMs.value = 0
     precomputedResults.value = []
   }
 
@@ -89,6 +99,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
     currentRoundIndex,
     phase,
     raceProgress,
+    raceElapsedMs,
     currentRound,
     completedRounds,
     currentRoundHorses,
@@ -97,6 +108,7 @@ export const useHorseGameStore = defineStore('horseGame', () => {
     prepareRound,
     finalizeRound,
     setPhase,
+    updateElapsedMs,
     updateProgress,
     reset,
   }

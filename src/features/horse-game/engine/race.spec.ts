@@ -1,5 +1,5 @@
 import type { Horse, Round } from '../types'
-import { RACE_DURATION_MS, STAGGER_MS } from './constants'
+import { BASE_DISTANCE, RACE_DURATION_MS, STAGGER_MS } from './constants'
 import { createTickFunction, getTotalRaceDuration, simulateRace } from './race'
 
 function createTestHorses(): Horse[] {
@@ -67,13 +67,13 @@ describe('createTickFunction', () => {
 
   it('returns a function', () => {
     const results = simulateRace(round, horses)
-    const tickFn = createTickFunction(results)
+    const tickFn = createTickFunction(results, round.distance)
     expect(typeof tickFn).toBe('function')
   })
 
   it('returns all zeros at elapsed=0', () => {
     const results = simulateRace(round, horses)
-    const tickFn = createTickFunction(results)
+    const tickFn = createTickFunction(results, round.distance)
     const progress = tickFn(0)
 
     for (const horseId of results.map(r => r.horseId)) {
@@ -83,8 +83,8 @@ describe('createTickFunction', () => {
 
   it('returns all 1.0 after total duration', () => {
     const results = simulateRace(round, horses)
-    const tickFn = createTickFunction(results)
-    const totalDuration = getTotalRaceDuration(results.length)
+    const tickFn = createTickFunction(results, round.distance)
+    const totalDuration = getTotalRaceDuration(results.length, round.distance)
     const progress = tickFn(totalDuration + 1000)
 
     for (const horseId of results.map(r => r.horseId)) {
@@ -94,7 +94,7 @@ describe('createTickFunction', () => {
 
   it('winner progresses faster than last place at midpoint', () => {
     const results = simulateRace(round, horses)
-    const tickFn = createTickFunction(results)
+    const tickFn = createTickFunction(results, round.distance)
     const midpoint = RACE_DURATION_MS / 2
 
     const progress = tickFn(midpoint)
@@ -106,7 +106,7 @@ describe('createTickFunction', () => {
 
   it('progress is monotonically increasing', () => {
     const results = simulateRace(round, horses)
-    const tickFn = createTickFunction(results)
+    const tickFn = createTickFunction(results, round.distance)
     const horseId = results[0]!.horseId
 
     let prevProgress = 0
@@ -119,11 +119,18 @@ describe('createTickFunction', () => {
 })
 
 describe('getTotalRaceDuration', () => {
-  it('calculates correct total duration', () => {
-    expect(getTotalRaceDuration(10)).toBe(RACE_DURATION_MS + 9 * STAGGER_MS)
+  it('calculates correct total duration for base distance', () => {
+    expect(getTotalRaceDuration(10, BASE_DISTANCE)).toBe(RACE_DURATION_MS + 9 * STAGGER_MS)
   })
 
-  it('returns base duration for single entry', () => {
-    expect(getTotalRaceDuration(1)).toBe(RACE_DURATION_MS)
+  it('returns base duration for single entry at base distance', () => {
+    expect(getTotalRaceDuration(1, BASE_DISTANCE)).toBe(RACE_DURATION_MS)
+  })
+
+  it('scales duration with distance', () => {
+    const longDistance = 2200
+    const scale = longDistance / BASE_DISTANCE
+    const expected = RACE_DURATION_MS * scale + 9 * STAGGER_MS * scale
+    expect(getTotalRaceDuration(10, longDistance)).toBeCloseTo(expected)
   })
 })

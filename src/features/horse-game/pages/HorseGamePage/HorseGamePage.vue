@@ -26,28 +26,29 @@ onMounted(() => {
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
       <!-- Left: Horse List -->
-      <div class="lg:col-span-2">
+      <div class="order-2 lg:order-0 lg:col-span-2">
         <HorseList :horses="store.horses" />
       </div>
 
       <!-- Center: Race Track -->
-      <div class="lg:col-span-6">
+      <div class="order-1 lg:order-0 lg:col-span-6">
         <RaceTrack
           :horses="store.currentRoundHorses"
           :progress="store.raceProgress"
           :round-number="store.currentRound?.roundNumber ?? null"
           :distance="store.currentRound?.distance ?? null"
+          :elapsed-ms="store.raceElapsedMs"
         />
       </div>
 
       <!-- Right: Program + Results -->
-      <div class="lg:col-span-2 space-y-4">
+      <div class="order-3 lg:order-0 lg:col-span-2 space-y-4">
         <RaceProgram
           :schedule="store.schedule"
           :horses="store.horses"
         />
       </div>
-      <div class="lg:col-span-2">
+      <div class="order-4 lg:order-0 lg:col-span-2">
         <RaceResults
           :completed-rounds="store.completedRounds"
           :horses="store.horses"

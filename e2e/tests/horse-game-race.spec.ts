@@ -30,9 +30,10 @@ test.describe('Horse Game — Race Flow', () => {
   })
 
   test('all 6 rounds complete and controls reset', async ({ page }) => {
+    test.slow()
     await clickStartPause(page)
     // Wait for race to finish — Generate becomes enabled again
-    await expect(page.locator(sel.generateBtn)).toBeEnabled({ timeout: 30_000 })
+    await expect(page.locator(sel.generateBtn)).toBeEnabled({ timeout: 60_000 })
     // After finish: Start disabled, Generate re-enabled
     await expect(page.locator(sel.startBtn)).toBeDisabled()
     await expect(page.locator(sel.generateBtn)).toBeEnabled()

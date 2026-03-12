@@ -164,6 +164,52 @@ describe('useHorseGameStore', () => {
     })
   })
 
+  describe('updateElapsedMs', () => {
+    it('updates raceElapsedMs', () => {
+      const store = useHorseGameStore()
+      store.updateElapsedMs(2500)
+      expect(store.raceElapsedMs).toBe(2500)
+    })
+  })
+
+  describe('finishTimeMs', () => {
+    it('records finish time on finalize', () => {
+      const store = useHorseGameStore()
+      store.generateProgram()
+      store.prepareRound()
+      store.updateElapsedMs(3700)
+      store.finalizeRound()
+
+      expect(store.schedule[0]!.finishTimeMs).toBe(3700)
+    })
+
+    it('resets raceElapsedMs after finalize', () => {
+      const store = useHorseGameStore()
+      store.generateProgram()
+      store.prepareRound()
+      store.updateElapsedMs(3700)
+      store.finalizeRound()
+
+      expect(store.raceElapsedMs).toBe(0)
+    })
+
+    it('records different finish times per round', () => {
+      const store = useHorseGameStore()
+      store.generateProgram()
+
+      store.prepareRound()
+      store.updateElapsedMs(3000)
+      store.finalizeRound()
+
+      store.prepareRound()
+      store.updateElapsedMs(5000)
+      store.finalizeRound()
+
+      expect(store.schedule[0]!.finishTimeMs).toBe(3000)
+      expect(store.schedule[1]!.finishTimeMs).toBe(5000)
+    })
+  })
+
   describe('updateProgress', () => {
     it('updates race progress', () => {
       const store = useHorseGameStore()
@@ -177,12 +223,14 @@ describe('useHorseGameStore', () => {
     it('resets all state to initial', () => {
       const store = useHorseGameStore()
       store.generateProgram()
+      store.updateElapsedMs(5000)
       store.reset()
 
       expect(store.phase).toBe('idle')
       expect(store.horses).toEqual([])
       expect(store.schedule).toEqual([])
       expect(store.currentRoundIndex).toBe(0)
+      expect(store.raceElapsedMs).toBe(0)
     })
   })
 })

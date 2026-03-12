@@ -1,9 +1,10 @@
 import type { RaceProgress } from '@/features/horse-game/types'
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 export function useRaceAnimation() {
   const isRunning = ref(false)
   const progress = ref<RaceProgress>({ positions: {} })
+  const elapsedMs = ref(0)
 
   let animationFrameId: number | null = null
   let startTime: number | null = null
@@ -16,6 +17,7 @@ export function useRaceAnimation() {
     if (startTime === null)
       startTime = timestamp
     const elapsed = pausedElapsed + (timestamp - startTime)
+    elapsedMs.value = elapsed
 
     if (tickFn) {
       progress.value = tickFn(elapsed)
@@ -80,12 +82,18 @@ export function useRaceAnimation() {
     onCompleteCb = null
     startTime = null
     pausedElapsed = 0
+    elapsedMs.value = 0
     progress.value = { positions: {} }
   }
+
+  onUnmounted(() => {
+    stop()
+  })
 
   return {
     isRunning,
     progress,
+    elapsedMs,
     start,
     pause,
     resume,

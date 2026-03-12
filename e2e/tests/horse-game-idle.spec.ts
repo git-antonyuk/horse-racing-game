@@ -15,8 +15,8 @@ test.describe('Horse Game — Idle State', () => {
     await expect(page.locator(sel.generateBtn)).toBeEnabled()
   })
 
-  test('Start button is disabled', async ({ page }) => {
-    await expect(page.locator(sel.startBtn)).toBeDisabled()
+  test('Start button is enabled', async ({ page }) => {
+    await expect(page.locator(sel.startBtn)).toBeEnabled()
   })
 
   test('horse list is empty', async ({ page }) => {
@@ -28,14 +28,6 @@ test.describe('Horse Game — Idle State', () => {
     const emptyMessage = page.locator(`${sel.horseList} table tbody tr td[colspan]`)
     const hasEmpty = await emptyMessage.count()
     expect(rowCount === 0 || hasEmpty > 0).toBe(true)
-  })
-
-  test('race track shows placeholder text', async ({ page }) => {
-    await expect(page.locator(sel.raceTrack)).toContainText('Generate a program to start racing')
-  })
-
-  test('program section shows no program', async ({ page }) => {
-    await expect(page.locator(sel.raceProgram)).toContainText('No program generated yet')
   })
 
   test('results section shows no results', async ({ page }) => {

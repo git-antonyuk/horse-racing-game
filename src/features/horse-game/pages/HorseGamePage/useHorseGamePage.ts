@@ -12,6 +12,10 @@ export function useHorseGamePage() {
     store.updateProgress(progress)
   })
 
+  watch(() => animation.elapsedMs.value, (ms) => {
+    store.updateElapsedMs(ms)
+  })
+
   function onGenerate() {
     animation.stop()
     store.generateProgram()
@@ -33,8 +37,8 @@ export function useHorseGamePage() {
 
   function startRound() {
     const tickFn = store.prepareRound()
-    const entryCount = store.currentRound?.entries.length ?? 10
-    const duration = getTotalRaceDuration(entryCount)
+    const round = store.currentRound!
+    const duration = getTotalRaceDuration(round.entries.length, round.distance)
 
     animation.start(tickFn, duration, () => {
       store.finalizeRound()

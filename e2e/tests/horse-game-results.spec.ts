@@ -9,12 +9,14 @@ test.describe('Horse Game — Results', () => {
   })
 
   test('after full race, 6 result tables are present', async ({ page }) => {
+    test.slow()
     await runFullRace(page)
     const results = page.locator(sel.roundResult)
-    await expect(results).toHaveCount(6, { timeout: 10_000 })
+    await expect(results).toHaveCount(6, { timeout: 30_000 })
   })
 
   test('each result shows positions 1–10', async ({ page }) => {
+    test.slow()
     await runFullRace(page)
     const results = page.locator(sel.roundResult)
     const count = await results.count()
@@ -26,6 +28,7 @@ test.describe('Horse Game — Results', () => {
   })
 
   test('horse names in results match horse list', async ({ page }) => {
+    test.slow()
     // Collect horse names from the list
     const horseNames = await page.locator(`${sel.horseList} table tbody tr td:nth-child(3)`).allTextContents()
     const nameSet = new Set(horseNames.map(n => n.trim()))

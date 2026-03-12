@@ -1,5 +1,5 @@
-import type { Horse, RaceProgress, Round, RoundEntry } from '../types'
-import { RACE_DURATION_MS, STAGGER_MS } from './constants'
+import type { Horse, RaceProgress, Round, RoundEntry } from '@/features/horse-game/types'
+import { BASE_DISTANCE, RACE_DURATION_MS, STAGGER_MS } from '@/features/horse-game/engine/constants'
 
 export function simulateRace(round: Round, horses: Horse[]): RoundEntry[] {
   const horseMap = new Map(horses.map(h => [h.id, h]))
@@ -24,13 +24,22 @@ function easeOut(t: number): number {
   return 1 - (1 - t) ** 2
 }
 
+function distanceScale(distance: number): number {
+  return distance / BASE_DISTANCE
+}
+
 export function createTickFunction(
   results: RoundEntry[],
+  distance: number,
 ): (elapsedMs: number) => RaceProgress {
+  const scale = distanceScale(distance)
+  const scaledBase = RACE_DURATION_MS * scale
+  const scaledStagger = STAGGER_MS * scale
+
   // Pre-compute finish time for each horse based on position
   const finishTimes = new Map<number, number>()
   for (const entry of results) {
-    const finishTime = RACE_DURATION_MS + (entry.position - 1) * STAGGER_MS
+    const finishTime = scaledBase + (entry.position - 1) * scaledStagger
     finishTimes.set(entry.horseId, finishTime)
   }
 
@@ -47,6 +56,7 @@ export function createTickFunction(
   }
 }
 
-export function getTotalRaceDuration(entryCount: number): number {
-  return RACE_DURATION_MS + (entryCount - 1) * STAGGER_MS
+export function getTotalRaceDuration(entryCount: number, distance: number): number {
+  const scale = distanceScale(distance)
+  return RACE_DURATION_MS * scale + (entryCount - 1) * STAGGER_MS * scale
 }

@@ -50,6 +50,17 @@ A `Makefile` wraps these commands (e.g., `make dev`, `make test`).
 - Use `type` instead of `interface` — no interfaces in this codebase
 - SCSS available via `sass-embedded`
 
+## Custom Commands
+
+Slash commands in `.claude/commands/` for common workflows:
+
+| Command | Purpose |
+|---------|---------|
+| `/unit-test [target]` | Write/fix Vitest unit tests following composable patterns |
+| `/e2e-test [description]` | Write/fix Playwright e2e tests with centralized selectors/helpers |
+| `/architecture [feature]` | Scaffold new features following FSD structure |
+| `/review [scope]` | Code review for style, architecture, and testing compliance |
+
 ## Documentation References
 
 Fetch these on-demand when working with the relevant technology:
