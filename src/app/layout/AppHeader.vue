@@ -8,9 +8,7 @@ const { isDark, toggle } = useDarkMode()
 <template>
   <header class="flex items-center justify-between px-6 py-3 border-b border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-800">
     <div class="flex items-center gap-3">
-      <span class="text-lg font-semibold text-surface-800 dark:text-surface-100 tracking-tight">
-        Horse Racing Game
-      </span>
+      <!-- PLACE FOR LOGO -->
     </div>
 
     <div class="flex items-center gap-2">
